@@ -1,0 +1,23 @@
+pipeline {
+    agent any
+    stages {
+        stage('Checkout') {
+            steps {
+                git url: 'https://github.com/ioannisgk/spring-demo-app', branch: 'development'
+            }
+        }
+
+        stage('Container Build') {
+            steps {
+                sh 'docker build -t spring-demo-app:v1.0 .'
+                sh 'docker images'
+            }
+        }
+
+        stage('Push to Dockerhub') {
+            steps {
+                sh 'docker --version'
+            }
+        }
+    }
+}
