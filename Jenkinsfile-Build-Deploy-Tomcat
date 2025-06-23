@@ -7,6 +7,7 @@ pipeline {
     stages {
         stage('Checkout') {
             steps {
+                cleanWs()
                 git url: 'https://github.com/ioannisgk/spring-demo-app', branch: 'main'
             }
         }
@@ -20,8 +21,6 @@ pipeline {
                 sshagent(credentials: ['tomcat-deploy-key']) {
                     sh '''
                         scp -o StrictHostKeyChecking=no target/spring-demo-app-1.0.war user1@192.168.163.190:/tmp/
-                        ssh -t -o StrictHostKeyChecking=no user1@192.168.163.190 \
-                            "echo user1 | sudo -S rm -rf /opt/tomcat/webapps/*"
                         ssh -t -o StrictHostKeyChecking=no user1@192.168.163.190 \
                             "echo user1 | sudo -S mv /tmp/spring-demo-app-1.0.war /opt/tomcat/webapps/spring-demo-app.war"
                     '''
