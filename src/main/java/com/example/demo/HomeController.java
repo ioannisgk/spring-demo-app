@@ -6,7 +6,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 
 @Controller
 public class HomeController {
-    private static final String APP_VERSION = "1.0";
+    private static final String APP_VERSION = "1.3";
 
     @GetMapping("/")
     public String home(Model model) {
