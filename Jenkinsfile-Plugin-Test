@@ -1,1 +1,19 @@
-Test
+pipeline {
+    agent any
+    stages {
+        stage('Checkout') {
+            steps {
+                git url: 'https://github.com/ioannisgk/spring-demo-app', branch: 'main'
+            }
+        }
+        stage('Container Build') {
+            steps {
+                script {
+                    // 
+                    sh "echo Test"
+                    
+                }
+            }
+        }
+    }
+}
