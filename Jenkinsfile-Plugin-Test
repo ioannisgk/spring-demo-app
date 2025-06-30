@@ -26,11 +26,5 @@ pipeline {
                 }
             }
         }
-        stage('Deploy') {
-            steps {
-                // Now accessible via env.COUNTRY
-                echo "Deploying to ${env.COUNTRY}..." 
-            }
-        }
     }
 }
