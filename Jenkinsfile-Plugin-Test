@@ -1,5 +1,9 @@
 pipeline {
     agent any
+    environment {
+        // Initialize the environment variable
+        COUNTRY = ""
+    }
     stages {
         stage('Checkout') {
             steps {
@@ -9,17 +13,23 @@ pipeline {
         stage('Set Property') {
             steps {
                 script {
-                    // Set a custom property for the build
+                    def countryValue = "Greece"
+                    
+                    // 1. Set for UI display (Custom Build Properties section)
                     setCustomBuildProperty(
                         key: 'Country', 
-                        value: 'Greece'
+                        value: countryValue
                     )
+                    
+                    // 2. Set as environment variable for pipeline use
+                    env.COUNTRY = countryValue
                 }
             }
         }
         stage('Deploy') {
             steps {
-                echo "Deploying to ${env.Country}..."
+                // Now accessible via env.COUNTRY
+                echo "Deploying to ${env.COUNTRY}..." 
             }
         }
     }
