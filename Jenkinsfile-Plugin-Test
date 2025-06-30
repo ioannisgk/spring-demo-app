@@ -6,13 +6,20 @@ pipeline {
                 git url: 'https://github.com/ioannisgk/spring-demo-app', branch: 'main'
             }
         }
-        stage('Container Build') {
+        stage('Set Property') {
             steps {
                 script {
-                    // 
-                    sh "echo Test"
-                    
+                    // Set a custom property for the build
+                    setCustomBuildProperty(
+                        key: 'Country', 
+                        value: 'Greece'
+                    )
                 }
+            }
+        }
+        stage('Deploy') {
+            steps {
+                echo "Deploying to ${env.Country}..."
             }
         }
     }
